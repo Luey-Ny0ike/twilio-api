@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-
+  require 'twilio-ruby'
   # GET /messages
   # GET /messages.json
   def index
@@ -28,6 +28,17 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
+        account_sid = Rails.application.credentials.account_sid
+        auth_token = Rails.application.credentials.auth_token
+        client = Twilio::REST::Client.new(account_sid, auth_token)
+        from = '+13344014637'
+        to = '+254726160664'
+
+        client.messages.create(
+          from: from,
+          to: to,
+          body: @message.body
+        )
         format.html { redirect_to @message, notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
