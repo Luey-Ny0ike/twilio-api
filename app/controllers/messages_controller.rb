@@ -32,7 +32,7 @@ class MessagesController < ApplicationController
         auth_token = Rails.application.credentials.auth_token
         client = Twilio::REST::Client.new(account_sid, auth_token)
         from = '+13344014637'
-        to = '+254726160664'
+        to = @message.to
 
         client.messages.create(
           from: from,
