@@ -1,24 +1,52 @@
-# README
+# Twilio sms API toy application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a toy web-app implementing Twilio SMS API to send SMS messages
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+clone this repo at
 
-* System dependencies
+cd into the project folder and run
 
-* Configuration
+```bash
+bundle install
+```
 
-* Database creation
+then
 
-* Database initialization
+```bash
+rails db:create && rails db:migrate
+```
 
-* How to run the test suite
+## Usage
 
-* Services (job queues, cache servers, search engines, etc.)
+You will need an account_sid and an auth_token from twilio, you can get it [here](https://www.twilio.com/try-twilio)
 
-* Deployment instructions
+Generate a number to send the messages <br>
+You will also need a verified phone number to receive SMS messages.
 
-* ...
+```bash
+require 'twilio-ruby'
+
+account_sid = "YOUR VALUE HERE"
+auth_token = "YOUR VALUE HERE"
+client = Twilio::REST::Client.new(account_sid, auth_token)
+from = "YOUR FROM NUMBER HERE"
+to = "YOUR TO NUMBER HERE"
+
+client.messages.create(
+  from: from,
+  to: to,
+  body: "YOUR MESSAGE HERE"
+)
+```
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Contributing
+
+Pull requests are welcome.
+
+Also check out my portfolio here [lewisnyoike.herokuapp.com](http://lewisnyoike.herokuapp.com/)
